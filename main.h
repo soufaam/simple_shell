@@ -27,6 +27,9 @@ void print_env(void);
 void builtin_command(char *command);
 
 int _setenv(const char *variable, const char *value, int overwrite);
-int _strchar(const char *str, char ch);
-char *_strcpy(char *dest, char *src)
+int _strc(const char *str, char ch);
+char *_strcpy(char *dest, char *src);
+int _strncmp(const char *s1, const char *s2, size_t n);
+extern char **environ;
+
 #endif
