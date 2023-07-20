@@ -25,4 +25,8 @@ void getline_error(char *_st, char *line, char **tab);
 void free_memory(char *_st, char *line, char **tab);
 void print_env(void);
 void builtin_command(char *command);
+
+int _setenv(const char *variable, const char *value, int overwrite);
+int _strchar(const char *str, char ch);
+char *_strcpy(char *dest, char *src)
 #endif
