@@ -24,5 +24,7 @@ int _stat(char *command);
 void getline_error(char *_st, char *line, char **tab);
 void free_memory(char *_st, char *line, char **tab);
 void print_env(void);
-void builtin_command(char *command);
+void builtin_command(char *command, char *_st, char *line, char **tab, int *flag);
+void execute(char *command, char **argv, char *av, int i, char *_st);
+void write_error(char *filename);
 #endif

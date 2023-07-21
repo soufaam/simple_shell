@@ -26,3 +26,15 @@ void free_memory(char *_st, char *line, char **tab)
 	free(line);
 	free_grid(tab);
 }
+
+/**
+ * write_error - write error
+ * @filename: second parameter
+ * Return: Always void
+ **/
+void write_error(char *filename)
+{
+	write(STDERR_FILENO, filename, _strlen(filename));
+	write(STDERR_FILENO, ": No such file or directory\n",
+	 _strlen(": No such file or directory\n"));
+}
