@@ -8,7 +8,6 @@
 #include <sys/types.h>
 #include <signal.h>
 
-extern char **environ;
 char *argstostr(int ac, char **av);
 char *_getenv(const char *name);
 int _strlen(char *s);
@@ -27,4 +26,10 @@ void print_env(void);
 void builtin_command(char *command, char *_st, char *line, char **tab, int *flag);
 void execute(char *command, char **argv, char *av, int i, char *_st);
 void write_error(char *filename);
+int _setenv(const char *variable, const char *value, int overwrite);
+int _strc(const char *str, char ch);
+char *_strcpy(char *dest, char *src);
+int _strncmp(const char *s1, const char *s2, size_t n);
+extern char **environ;
+
 #endif
