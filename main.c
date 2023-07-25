@@ -22,40 +22,42 @@ void sig_handler(__attribute__((unused)) int signo)
 int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 {
 	size_t buffer_size = 0, i = 0;
-	int numerchar, status, flag = 0;
+	int numberchar, status, flag = 0;
 	__pid_t pid;
-	char *line = NULL, **tab = NULL, *_st = NULL;
+	char *line = NULL, **tab = NULL, *cmd = NULL, *tmp = NULL, **path = NULL;
 
 	signal(SIGINT, sig_handler);
+	path = strtow(_getenv("PATH"), ':');
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", _strlen("$ "));
-		numerchar = getline(&line, &buffer_size, stdin);
-		i++;
-		if (numerchar == -1)
-			getline_error(_st, line, tab);
-		if (numerchar == 1)
+		shell_prompt(&buffer_size, &i);
+		numberchar = _getline(&line, &buffer_size, STDIN_FILENO);
+		if (get_line_tester(line, &tmp, &numberchar, path) == 1)
 			continue;
-		tab = strtow(line, ' ');
-		if (tab[1])
+		tab = strtow(tmp, ' ');
+		if (tab)
 		{
-			write_error(av[0]);
-			continue;
+			builtin_command(tmp, path, tab, &flag);
+			if (flag)
+			{
+				free_memory(tmp, cmd, line, tab);
+				continue;
+			}
+			cmd = _find_command(tab[0], path);
+			if (access(cmd, X_OK) == 0)
+			{
+				pid = fork();
+				if (pid == -1)
+					getline_error(cmd, line, tab, path);
+				if (pid == 0)
+					execute(cmd, tab);
+				else
+					wait(&status);
+			}
+			else if (!flag)
+				write_not_found_error(av[0], i, cmd);
 		}
-		builtin_command(tab[0], _st, line, tab, &flag);
-		if (_stat(tab[0]) == 0)
-		{
-			pid = fork();
-			if (pid == -1)
-				getline_error(_st, line, tab);
-			if (pid == 0)
-				execute(tab[0], tab, av[0], i, _st);
-			else
-				wait(&status);
-		}
-		else if (!flag)
-			write_error(av[0]);
+		free_memory(tmp, cmd, line, tab);
 	}
-	free_memory(_st, line, tab);
 	return (0);
 }

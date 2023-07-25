@@ -28,7 +28,7 @@ char *_getenv(const char *name)
 		}
 		if (len == j)
 		{
-			var = _strdup(environ[i] + len + 1);
+			var = environ[i] + len + 1;
 			break;
 		}
 	}

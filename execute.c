@@ -43,7 +43,7 @@ void write_not_found_error(char *av, int i, char *_st)
 	prinInt(i);
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, _st, _strlen(_st));
-	write(STDERR_FILENO, "not found\n", _strlen("not found\n"));
+	write(STDERR_FILENO, " not found\n", _strlen(" not found\n"));
 }
 
 /**
@@ -51,14 +51,11 @@ void write_not_found_error(char *av, int i, char *_st)
 * Description: _getenv read environment variables
 * @command: 1 param
 * @argv: 2 parameter
-* @av: 3 parameter
-* @i: 4 parameter
-* @_st: 5 parameter
 * and return the the desired variable
 * Return: Always 0 (Success)
 **/
-void execute(char *command, char **argv, char *av, int i, char *_st)
+void execute(char *command, char **argv)
 {
-	if (execve(command, argv, environ) == -1)
-		write_not_found_error(av, i, _st);
+	if (execve(command, argv, argv) == -1)
+		perror("Failed to execute command\n");
 }

@@ -12,20 +12,31 @@
 
 char *_strcat(char *dest, char *src)
 {
-	int i = 0, len;
+	int i = 0, len_dest, len_src;
+	char *tmpstr = NULL, *destr = NULL;
 
-	len = _strlen(dest);
-	if (dest[len - 1] != '/')
+	tmpstr = _strdup(dest);
+	len_dest = _strlen(tmpstr);
+	len_src = _strlen(src);
+	if (tmpstr[len_dest - 1] != '/')
 	{
-		dest[len] = '/';
-		dest[len + 1] = '\0';
-		len++;
+		tmpstr[len_dest] = '/';
+		tmpstr[len_dest + 1] = '\0';
+		len_dest++;
 	}
-	while (*(src + i) != '\0')
+	destr = malloc(len_dest + len_src + 1);
+	while (*(tmpstr + i) != '\0')
 	{
-		*(dest + (len + i)) = *(src + i);
+		*(destr + i) = *(tmpstr + i);
 		i++;
 	}
-	*(dest + (len + i)) = '\0';
-	return (dest);
+	i = 0;
+	while (*(src + i) != '\0')
+	{
+		*(destr + (len_dest + i)) = *(src + i);
+		i++;
+	}
+	*(destr + (len_dest + len_src)) = '\0';
+	free(tmpstr);
+	return (destr);
 }
