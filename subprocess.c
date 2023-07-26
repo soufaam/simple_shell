@@ -32,6 +32,7 @@ void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path)
 				if (isatty(!STDIN_FILENO))
 					exit(errno);
 			}
+			errno = 0;
 		}
 	}
 	else

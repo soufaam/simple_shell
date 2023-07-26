@@ -32,7 +32,7 @@ int get_line_tester(char *line, char **tmp, int *numberchar, char **path)
 	{
 		free_path(path);
 		free(line);
-		exit(EXIT_SUCCESS);
+		exit(errno);
 	}
 	if (*numberchar == 1)
 	{
