@@ -21,6 +21,7 @@ char *_find_command(char *command, char **path)
 		if (access(result_cat, X_OK) == 0)
 			return (result_cat);
 		free(result_cat);
+		result_cat = NULL;
 	}
 	return (_strdup(command));
 }

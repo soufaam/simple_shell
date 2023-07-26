@@ -25,7 +25,6 @@ void shell_prompt(size_t *buffer_size, size_t *i)
  **/
 int get_line_tester(char *line, char **tmp, int *numberchar, char **path)
 {
-	*tmp = _strncpy(*tmp, line, _strlen(line) - 1);
 	if (*numberchar == -1)
 	{
 		free_path(path);
@@ -35,7 +34,9 @@ int get_line_tester(char *line, char **tmp, int *numberchar, char **path)
 	if (*numberchar == 1)
 	{
 		free(line);
+		line = NULL;
 		return (1);
 	}
+	*tmp = _strncpy(*tmp, line, _strlen(line) - 1);
 	return (*numberchar);
 }
