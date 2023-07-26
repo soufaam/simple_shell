@@ -11,18 +11,18 @@ void  prinInt(int var)
 
 	if (var < 0)
 	{
-		write(STDOUT_FILENO, "-", 1);
+		write(STDERR_FILENO, "-", 1);
 		if (var == -2147483648)
 		{
 			var = -147483648;
-			write(STDOUT_FILENO, "2", 1);
+			write(STDERR_FILENO, "2", 1);
 		}
 		var = -var;
 	}
 	if (var / 10)
 		prinInt(var / 10);
 	ch = var % 10 + '0';
-	write(STDOUT_FILENO, &ch, 1);
+	write(STDERR_FILENO, &ch, 1);
 }
 
 /**
@@ -37,7 +37,6 @@ void  prinInt(int var)
 
 void write_not_found_error(char *av, int i, char *_st)
 {
-
 	write(STDERR_FILENO, av, _strlen(av));
 	write(STDERR_FILENO, ": ", 2);
 	prinInt(i);
