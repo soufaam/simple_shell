@@ -31,5 +31,7 @@ int _strc(const char *str, char ch);
 char *_strcpy(char *dest, char *src);
 int _strncmp(const char *s1, const char *s2, size_t n);
 extern char **environ;
+#include <errno.h>
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif
