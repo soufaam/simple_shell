@@ -39,4 +39,6 @@ size_t _getline(char **line, size_t *buffer_size, size_t fd);
 void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path);
 void free_path(char **grid);
 extern char **environ;
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
 #endif
