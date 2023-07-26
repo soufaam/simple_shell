@@ -88,11 +88,12 @@ void free_str(char *str, char *tmp, char *tmp_str)
  **/
 char *_readline(char **line, size_t *buffer_size, int fd)
 {
-	size_t numberchar = 0;
+	static size_t numberchar;
 	int len = -1;
 	char *str = NULL, *tmp_str = NULL, *tmp = NULL;
 
 	str = malloc(*buffer_size * sizeof(char) + 1);
+	numberchar = 0;
 	numberchar = read(fd, str, *buffer_size);
 	if (findchar(str, '\n', &len))
 	{

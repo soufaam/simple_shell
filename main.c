@@ -31,7 +31,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 	while (1)
 	{
 		shell_prompt(&buffer_size, &i);
-		numberchar = getline(&line, &buffer_size, stdin);
+		numberchar = _getline(&line, &buffer_size, STDIN_FILENO);
 		if (get_line_tester(line, &tmp, &numberchar, path) == 1)
 			continue;
 		tab = strtow(tmp, ' ');
