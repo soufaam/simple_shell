@@ -22,8 +22,7 @@ void sig_handler(__attribute__((unused)) int signo)
 int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 {
 	size_t buffer_size = 0, i = 0;
-	int numberchar, status, flag = 0;
-	__pid_t pid;
+	int numberchar, status = 0, flag = 0;
 	char *line = NULL, **tab = NULL, *cmd = NULL, *tmp = NULL, **path = NULL;
 
 	signal(SIGINT, sig_handler);
@@ -37,24 +36,15 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 		tab = strtow(tmp, ' ');
 		if (tab)
 		{
-			builtin_command(tmp, path, tab, &flag);
+			builtin_command(tmp, path, tab, &flag, status);
 			if (flag)
 			{
 				free_memory(tmp, cmd, line, tab);
 				continue;
 			}
 			cmd = _find_command(tab[0], path);
-			if (access(cmd, X_OK) == 0)
-			{
-				pid = fork();
-				if (pid == -1)
-					getline_error(cmd, line, tab, path);
-				if (pid == 0)
-					execute(cmd, tab);
-				else
-					wait(&status);
-			}
-			else if (!flag)
+			child(&status, &flag, cmd, line, tab, path);
+			if (!flag)
 				write_not_found_error(av[0], i, cmd);
 		}
 		free_memory(tmp, cmd, line, tab);

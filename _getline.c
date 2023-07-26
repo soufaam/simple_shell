@@ -3,7 +3,7 @@
 
 
 /**
-* findchar - ENTRYPOINT
+* findchar - find a specific character
 * @s: string
 * @c: char
 * @len: lenght
@@ -25,7 +25,7 @@ int findchar(char *s, char c, int *len)
 	return (find);
 }
 /**
-* _strcat_interne -  Entrypoint
+* _strcat_interne -  concatenate
 * Description: 'the program's description _strcat
 * @dest: 1 param
 * @src: 2 param
@@ -59,12 +59,11 @@ char *_strcat_interne(char *dest, char *src)
 	return (destr);
 }
 
-
 /**
- * free_str - write error
+ * free_str - free_str free allocated string
  * @str: second parameter
- * @tmp: buffer size
- * @tmp_str: file descriptor
+ * @tmp: temporary string
+ * @tmp_str: temporary string
  * Return: Always void
  **/
 
@@ -78,38 +77,37 @@ void free_str(char *str, char *tmp, char *tmp_str)
 	if (tmp_str)
 		free(tmp_str);
 }
+
+
 /**
- * _getline - write error
- * @line: second parameter
+ * _readline - _readline auxilary function
+ * @line: line
  * @buffer_size: buffer size
  * @fd: file descriptor
  * Return: Always void
  **/
-
-size_t _getline(char **line, size_t *buffer_size, size_t fd)
+char *_readline(char **line, size_t *buffer_size, int fd)
 {
-	size_t tmp_buffer_size = 80, numberchar = 0;
+	size_t numberchar = 0;
 	int len = -1;
 	char *str = NULL, *tmp_str = NULL, *tmp = NULL;
 
-	str = malloc(tmp_buffer_size * sizeof(char) + 1);
-	numberchar = read(fd, str, tmp_buffer_size);
+	str = malloc(*buffer_size * sizeof(char) + 1);
+	numberchar = read(fd, str, *buffer_size);
 	if (findchar(str, '\n', &len))
 	{
 		tmp = _strncpy(tmp, str, len);
 		tmp_str = _strcat_interne(tmp_str, tmp);
 		*line = _strdup(tmp_str);
 		free_str(str, tmp, tmp_str);
-		return (_strlen(*line));
+		return (*line);
 	}
 	if (numberchar == 1)
 	{
-		*buffer_size = numberchar;
 		*line = str;
 		free(str);
-		return (*buffer_size);
+		return (*line);
 	}
-	*buffer_size = numberchar;
 	while (numberchar > 0)
 	{
 		str[numberchar] = '\0';
@@ -120,28 +118,36 @@ size_t _getline(char **line, size_t *buffer_size, size_t fd)
 			break;
 		}
 		tmp_str = _strcat_interne(tmp_str, str);
-		numberchar = read(fd, str, tmp_buffer_size);
-		*buffer_size += numberchar;
+		numberchar = read(fd, str, *buffer_size);
 	}
 	*line = _strdup(tmp_str);
 	free_str(str, tmp, tmp_str);
-	if (numberchar <= 0)
+	return (*line);
+}
+
+
+/**
+ * _getline - write error
+ * @line: second parameter
+ * @buffer_size: buffer size
+ * @fd: file descriptor
+ * Return: Always void
+ **/
+
+size_t _getline(char **line, size_t *buffer_size, size_t fd)
+{
+	size_t tmp_buffer_size;
+
+
+	if (*buffer_size == 0)
+	{
+		tmp_buffer_size = 1024;
+	}
+	else
+		tmp_buffer_size = *buffer_size;
+	*line = _readline(line, &tmp_buffer_size, fd);
+	*buffer_size = _strlen(*line);
+	if (*buffer_size <= 0)
 		return (-1);
 	return (*buffer_size);
 }
-
-/**void main(void)
-{
-	char *line = NULL;
-	size_t buffer_size = 0, numberchar;
-
-	write(STDOUT_FILENO, "$ ", 2);
-	numberchar = _getline(&line, &buffer_size, STDIN_FILENO);
-	printf("%d \n", (int)numberchar);
-	write(STDOUT_FILENO, line, _strlen(line));
-	write(STDOUT_FILENO, "$ ", 3);
-	numberchar = getline(&line, &buffer_size, stdin);
-	printf("%d \n", (int)numberchar);
-	write(STDOUT_FILENO, line, _strlen(line));
-}
-*/

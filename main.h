@@ -23,7 +23,7 @@ int _stat(char *command);
 void getline_error(char *_st, char *line, char **tab, char **path);
 void free_memory(char *tmp, char *_st, char *line, char **tab);
 void print_env(void);
-void builtin_command(char *line, char **path, char **tab, int *flag);
+void builtin_command(char *line, char **path, char **tab, int *fg, int st);
 void execute(char *command, char **argv);
 void write_error(char *filename);
 void write_not_found_error(char *av, int i, char *_st);
@@ -35,6 +35,7 @@ char *_strncpy(char *dest, char *src, int n);
 void shell_prompt(size_t *buffer_size, size_t *i);
 int get_line_tester(char *line, char **tmp, int *numberchar, char **path);
 size_t _getline(char **line, size_t *buffer_size, size_t fd);
+void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path);
 void free_path(char **grid);
 extern char **environ;
 #endif

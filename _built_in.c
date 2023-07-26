@@ -2,27 +2,28 @@
 
 /**
  * builtin_command - execute built-in function
- * @line: 3 param
+ * @ln: 3 param
  * @tab: 4 param
- * @flag: 5 param
- * @path: the path variable
+ * @fg: 5 param the flage parameter
+ * @pth: the path variable
+ * @st: the status
  * Return: Always 0
  **/
-void builtin_command(char *line, char **path, char **tab, int *flag)
+void builtin_command(char *ln, char **pth, char **tab, int *fg, int st)
 {
 	if (_strncmp(tab[0], "exit", 4) == 0)
 	{
-		*flag = 1;
+		*fg = 1;
 		free_grid(tab);
-		free(line);
-		free_path(path);
-		exit(0);
+		free(ln);
+		free_path(pth);
+		exit(st);
 	}
 	if (_strncmp(tab[0], "env", 3) == 0)
 	{
-		*flag = 1;
+		*fg = 1;
 		print_env();
 	}
 	else
-		*flag = 0;
+		*fg = 0;
 }
