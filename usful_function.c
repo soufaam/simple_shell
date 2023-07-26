@@ -12,7 +12,10 @@ void shell_prompt(size_t *buffer_size, size_t *i)
 	*buffer_size = 0;
 	*i = 1 + *i;
 	if (isatty(STDIN_FILENO))
+	{
 		write(STDOUT_FILENO, "$ ", _strlen("$ "));
+		fflush(stdout);
+	}
 }
 
 /**

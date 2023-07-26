@@ -29,6 +29,8 @@ void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path)
 			if (WIFEXITED(*status))
 			{
 				errno = WEXITSTATUS(*status);
+				if (isatty(!STDIN_FILENO))
+					exit(errno);
 			}
 		}
 	}

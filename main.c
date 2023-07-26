@@ -11,6 +11,7 @@
 void sig_handler(__attribute__((unused)) int signo)
 {
 	write(STDOUT_FILENO, "\n$ ", _strlen("\n$ "));
+	fflush(stdout);
 }
 /**
  * main - Entry point
