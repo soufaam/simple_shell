@@ -11,13 +11,15 @@
  **/
 void builtin_command(char *ln, char **pth, char **tab, int *fg, int st)
 {
+	int var = 0;
+
 	if (_strncmp(tab[0], "exit", 4) == 0)
 	{
 		*fg = 1;
 		free_grid(tab);
 		free(ln);
 		free_path(pth);
-		exit(st);
+		exit(errno);
 	}
 	if (_strncmp(tab[0], "env", 3) == 0)
 	{
@@ -26,4 +28,6 @@ void builtin_command(char *ln, char **pth, char **tab, int *fg, int st)
 	}
 	else
 		*fg = 0;
+	st = errno;
+	var = var + st +  errno;
 }

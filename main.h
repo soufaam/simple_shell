@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <errno.h>
 
 char *argstostr(int ac, char **av);
 char *_getenv(const char *name);

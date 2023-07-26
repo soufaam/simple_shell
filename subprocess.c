@@ -24,7 +24,13 @@ void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path)
 		if (pid == 0)
 			execute(cmd, tab);
 		else
+		{
 			wait(status);
+			if (WIFEXITED(*status))
+			{
+				errno = WEXITSTATUS(*status);
+			}
+		}
 	}
 	else
 		*fg = 0;
