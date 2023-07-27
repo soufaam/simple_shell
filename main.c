@@ -44,10 +44,11 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 				continue;
 			}
 			cmd = _find_command(tab[0], path);
-			child(&status, &flag, cmd, line, tab, path);
+			child(&status, &flag, cmd, line, tmp, tab, path);
 			if (!flag)
 				write_not_found_error(av[0], i, cmd);
 		}
+		free_grid(tab);
 		free_memory(tmp, cmd, line, path);
 	}
 	return (0);
