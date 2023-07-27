@@ -28,11 +28,14 @@ void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path)
 			wait(status);
 			if (WIFEXITED(*status))
 			{
-				errno = WEXITSTATUS(*status);
-				if (isatty(!STDIN_FILENO))
+				if (isatty(STDIN_FILENO))
+					errno = 0;
+				else
+				{
+					errno = WEXITSTATUS(*status);
 					exit(errno);
+				}
 			}
-			errno = 0;
 		}
 	}
 	else

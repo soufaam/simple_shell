@@ -10,7 +10,8 @@
  * @st: the status
  * Return: Always 0
  **/
-void builtin_command(char *ln, char *tmp, char **pth, char **tab, int *fg, int st)
+void builtin_command(char *ln, char *tmp, char **pth,
+char **tab, int *fg, int st)
 {
 	int var = 0;
 
