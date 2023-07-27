@@ -11,7 +11,7 @@
  * Return: Always void
  **/
 void child(int *status, int *fg, char *cmd, char *ln, char *tmp,
-char **tab,char **path)
+char **tab, char **path)
 {
 
 	if (access(cmd, X_OK) == 0)
