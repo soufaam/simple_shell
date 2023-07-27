@@ -21,7 +21,7 @@ void builtin_command(char *ln, char *tmp, char **pth, char **tab, int *fg, int s
 		free(tmp);
 		free(ln);
 		free_path(pth);
-		exit(errno);
+		exit(0);
 	}
 	if (_strncmp(tab[0], "env", 3) == 0)
 	{
