@@ -41,6 +41,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 			if (flag)
 			{
 				free_memory(tmp, cmd, line, tab);
+				free_path(path);
 				continue;
 			}
 			cmd = _find_command(tab[0], path);
