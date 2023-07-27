@@ -27,9 +27,9 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 	char *line = NULL, **tab = NULL, *cmd = NULL, *tmp = NULL, **path = NULL;
 
 	signal(SIGINT, sig_handler);
-	path = strtow(_getenv("PATH"), ':');
 	while (1)
 	{
+		path = strtow(_getenv("PATH"), ':');
 		shell_prompt(&buffer_size, &i);
 		numberchar = getline(&line, &buffer_size, stdin);
 		if (get_line_tester(line, &tmp, &numberchar, path) == 1)
@@ -37,7 +37,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 		tab = strtow(tmp, ' ');
 		if (tab)
 		{
-			builtin_command(tmp, path, tab, &flag, status);
+			builtin_command(line, tmp, path, tab, &flag, status);
 			if (flag)
 			{
 				free_memory(tmp, cmd, line, tab);
@@ -48,7 +48,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 			if (!flag)
 				write_not_found_error(av[0], i, cmd);
 		}
-		free_memory(tmp, cmd, line, tab);
+		free_memory(tmp, cmd, line, path);
 	}
 	return (0);
 }

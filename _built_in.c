@@ -2,6 +2,7 @@
 
 /**
  * builtin_command - execute built-in function
+ * @tmp: line without \\n;
  * @ln: 3 param
  * @tab: 4 param
  * @fg: 5 param the flage parameter
@@ -9,7 +10,7 @@
  * @st: the status
  * Return: Always 0
  **/
-void builtin_command(char *ln, char **pth, char **tab, int *fg, int st)
+void builtin_command(char *ln, char *tmp, char **pth, char **tab, int *fg, int st)
 {
 	int var = 0;
 
@@ -17,6 +18,7 @@ void builtin_command(char *ln, char **pth, char **tab, int *fg, int st)
 	{
 		*fg = 1;
 		free_grid(tab);
+		free(tmp);
 		free(ln);
 		free_path(pth);
 		exit(errno);

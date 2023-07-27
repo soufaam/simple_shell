@@ -19,8 +19,7 @@ void free_grid(char **grid)
 			free(grid[i]);
 			grid[i] = NULL;
 		}
-		if (grid)
-			free(grid);
+		free(grid);
 		grid = NULL;
 	}
 }
@@ -42,8 +41,7 @@ void free_path(char **grid)
 			free(grid[i]);
 			grid[i] = NULL;
 		}
-		if (grid)
-			free(grid);
+		free(grid);
 		grid = NULL;
 	}
 }

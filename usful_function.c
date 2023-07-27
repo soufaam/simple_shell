@@ -18,6 +18,32 @@ void shell_prompt(size_t *buffer_size, size_t *i)
 	}
 }
 
+
+
+/**
+ * full_of_char -  test if string is full of char '\t'
+ * @str: size_t inisialised with
+ * @c: char var
+ * Return: Always void
+ **/
+
+int full_of_char(char *str, char c)
+{
+	int i = 0;
+
+	if (!str)
+		return (0);
+	while (str[i] != '\0' && str[i] == c)
+	{
+		i++;
+	}
+	if (str[i] == '\n')
+	{
+		i++;
+	}
+	return (_strlen(str) - i);
+}
+
 /**
  * get_line_tester -  get_line_tester function that exit
  * @line: size_t inisialised with
@@ -35,6 +61,12 @@ int get_line_tester(char *line, char **tmp, int *numberchar, char **path)
 		exit(EXIT_SUCCESS);
 	}
 	if (*numberchar == 1)
+	{
+		free(line);
+		line = NULL;
+		return (1);
+	}
+	if (!full_of_char(line, '\t'))
 	{
 		free(line);
 		line = NULL;

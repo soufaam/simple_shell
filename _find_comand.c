@@ -14,7 +14,7 @@ char *_find_command(char *command, char **path)
 	char *result_cat = NULL;
 
 	if (access(command, X_OK) == 0)
-		return (_strdup(command));
+		return (command);
 	for (i = 0; path[i] != NULL; i++)
 	{
 		result_cat = _strcat(path[i], command);
