@@ -30,19 +30,20 @@ void  prinInt(int var)
 * Description: write_not_found_error read print error when occurs
 * @av: 3 parameter
 * @i: 4 parameter
-* @_st: 5 parameter
+* @cmd: 5 parameter
 * and return the the desired variable
 * Return: Always 0 (Success)
 **/
 
-void write_not_found_error(char *av, int i, char *_st)
+void write_not_found_error(char *av, int i, char *cmd, int *status)
 {
 	write(STDERR_FILENO, av, _strlen(av));
 	write(STDERR_FILENO, ": ", 2);
 	prinInt(i);
 	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, _st, _strlen(_st));
+	write(STDERR_FILENO, cmd, _strlen(cmd));
 	write(STDERR_FILENO, " not found\n", _strlen(" not found\n"));
+	*status = 127;
 }
 
 /**

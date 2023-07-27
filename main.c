@@ -47,7 +47,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 			cmd = _find_command(tab[0], path);
 			child(&status, &flag, cmd, line, tab, path);
 			if (!flag)
-				write_not_found_error(av[0], i, cmd);
+				write_not_found_error(av[0], i, cmd, &status);
 		}
 		if (tab && !_strncmp(tab[0], cmd, _strlen(cmd)))
 			free_memory(tmp, NULL, line, tab);

@@ -28,7 +28,7 @@ void builtin_command(char *ln, char *tmp,
 char **pth, char **tab, int *fg, int st);
 void execute(char *command, char **argv);
 void write_error(char *filename);
-void write_not_found_error(char *av, int i, char *_st);
+void write_not_found_error(char *av, int i, char *cmd, int *status);
 int _setenv(const char *variable, const char *value, int overwrite);
 int _strc(const char *str, char ch);
 char *_strcpy(char *dest, char *src);
