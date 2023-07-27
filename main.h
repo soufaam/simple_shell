@@ -35,10 +35,10 @@ char *_strcpy(char *dest, char *src);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strncpy(char *dest, char *src, int n);
 void shell_prompt(size_t *buffer_size, size_t *i);
-int get_line_tester(char *line, char **tmp, int *numberchar, char **path);
+int  get_line_tester(int numberchar, int status, char *line,
+char **tmp, char **path);
 size_t _getline(char **line, size_t *buffer_size, size_t fd);
-void child(int *status, int *fg, char *cmd, char *ln, char *tmp,
-char **tab,char **path);
+void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path);
 void free_path(char **grid);
 extern char **environ;
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);

@@ -10,9 +10,9 @@
  * @fg: flag indicates if the command is found or not
  * Return: Always void
  **/
-void child(int *status, int *fg, char *cmd, char *ln, char *tmp,
-char **tab, char **path)
+void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path)
 {
+	int exit_stat;
 
 	if (access(cmd, X_OK) == 0)
 	{
@@ -33,10 +33,8 @@ char **tab, char **path)
 					errno = 0;
 				else
 				{
-					free_memory(cmd, ln, tmp, tab);
-					free_path(path);
-					errno = WEXITSTATUS(*status);
-					exit(errno);
+					exit_stat = WEXITSTATUS(*status);
+					*status = exit_stat;
 				}
 			}
 		}

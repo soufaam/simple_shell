@@ -50,17 +50,29 @@ int full_of_char(char *str, char c)
  * @tmp: char pointer
  * @numberchar: the number of char
  * @path: the path variable
+ * @status: exit stat
  * Return: Always void
  **/
-int get_line_tester(char *line, char **tmp, int *numberchar, char **path)
+int get_line_tester(int numberchar, int status, char *line,
+char **tmp, char **path)
 {
-	if (*numberchar == -1)
+	if (numberchar == -1)
 	{
+		if (isatty(STDIN_FILENO))
+		{
+			free_path(path);
+			free(line);
+			errno = 0;
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
 		free_path(path);
 		free(line);
-		exit(EXIT_SUCCESS);
+		exit(status);
+		}
 	}
-	if (*numberchar == 1)
+	if (numberchar == 1)
 	{
 		free(line);
 		line = NULL;
@@ -73,5 +85,5 @@ int get_line_tester(char *line, char **tmp, int *numberchar, char **path)
 		return (1);
 	}
 	*tmp = _strncpy(*tmp, line, _strlen(line) - 1);
-	return (*numberchar);
+	return (numberchar);
 }

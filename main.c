@@ -32,7 +32,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 		path = strtow(_getenv("PATH"), ':');
 		shell_prompt(&buffer_size, &i);
 		numberchar = getline(&line, &buffer_size, stdin);
-		if (get_line_tester(line, &tmp, &numberchar, path) == 1)
+		if (get_line_tester(numberchar, status, line, &tmp, path) == 1)
 			continue;
 		tab = strtow(tmp, ' ');
 		if (tab)
@@ -44,12 +44,15 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 				continue;
 			}
 			cmd = _find_command(tab[0], path);
-			child(&status, &flag, cmd, line, tmp, tab, path);
+			child(&status, &flag, cmd, line, tab, path);
 			if (!flag)
 				write_not_found_error(av[0], i, cmd);
 		}
-		free_grid(tab);
-		free_memory(tmp, cmd, line, path);
+		if (!_strncmp(tab[0], cmd, _strlen(cmd)))
+			free_memory(tmp, NULL, line, tab);
+		else
+			free_memory(tmp, cmd, line, tab);
+		free_path(path);
 	}
 	return (0);
 }

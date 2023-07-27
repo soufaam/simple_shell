@@ -13,8 +13,6 @@
 void builtin_command(char *ln, char *tmp, char **pth,
 char **tab, int *fg, int st)
 {
-	int var = 0;
-
 	if (_strncmp(tab[0], "exit", 4) == 0)
 	{
 		*fg = 1;
@@ -22,7 +20,7 @@ char **tab, int *fg, int st)
 		free(tmp);
 		free(ln);
 		free_path(pth);
-		exit(0);
+		exit(st);
 	}
 	if (_strncmp(tab[0], "env", 3) == 0)
 	{
@@ -31,6 +29,4 @@ char **tab, int *fg, int st)
 	}
 	else
 		*fg = 0;
-	st = errno;
-	var = var + st +  errno;
 }
