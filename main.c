@@ -49,7 +49,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 			if (!flag)
 				write_not_found_error(av[0], i, cmd);
 		}
-		if (!_strncmp(tab[0], cmd, _strlen(cmd)))
+		if (tab && !_strncmp(tab[0], cmd, _strlen(cmd)))
 			free_memory(tmp, NULL, line, tab);
 		else
 			free_memory(tmp, cmd, line, tab);
