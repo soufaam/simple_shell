@@ -16,7 +16,7 @@ char *_strncpy(char *dest, char *src, int n)
 	int t = 0;
 
 	if (n > 0)
-		dest = malloc(n + 1);
+		dest = malloc(sizeof(char) * (n + 1));
 	if (!dest)
 		return (NULL);
 	if (src)

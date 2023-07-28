@@ -39,7 +39,7 @@ int calword(char *s, char delimeter)
 
 	if (s == NULL)
 		return (0);
-	if (*s == '\0')
+	if (s[0] == '\0')
 		return (0);
 	while (*(s + t) != '\0')
 	{
@@ -52,7 +52,7 @@ int calword(char *s, char delimeter)
 		}
 		t++;
 	}
-	if (*(s + t - 1) != delimeter)
+	if (t > 0 && *(s + t - 1) != delimeter)
 		wrd++;
 	return (wrd);
 }

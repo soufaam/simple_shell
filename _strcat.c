@@ -20,11 +20,12 @@ char *_strcat(char *dest, char *src)
 	len_src = _strlen(src);
 	if (tmpstr[len_dest - 1] != '/')
 	{
+		tmpstr = _realloc(tmpstr, len_dest, len_dest + 1);
 		tmpstr[len_dest] = '/';
 		tmpstr[len_dest + 1] = '\0';
 		len_dest++;
 	}
-	destr = malloc(len_dest + len_src + 1);
+	destr = malloc(sizeof(char) * (len_dest + len_src + 1));
 	while (*(tmpstr + i) != '\0')
 	{
 		*(destr + i) = *(tmpstr + i);

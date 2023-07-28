@@ -31,6 +31,7 @@ void  prinInt(int var)
 * @av: 3 parameter
 * @i: 4 parameter
 * @cmd: 5 parameter
+* @status: the exit status
 * and return the the desired variable
 * Return: Always 0 (Success)
 **/
