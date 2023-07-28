@@ -29,7 +29,7 @@ int calcchar(char *s, __attribute__((unused)) int  *t, char delimeter)
 * calword -  word couter auxilary function
 * Description: 'this function calculate the number of word in a sring
 * @s: 1 param
-* @delimeter: 3 param
+* @delimeter: 2 param
 *  Return: Always 0 (Success)
 */
 
@@ -39,7 +39,7 @@ int calword(char *s, char delimeter)
 
 	if (s == NULL)
 		return (0);
-	if (*s == '\0')
+	if (s[0] == '\0')
 		return (0);
 	while (*(s + t) != '\0')
 	{
@@ -52,7 +52,7 @@ int calword(char *s, char delimeter)
 		}
 		t++;
 	}
-	if (*(s + t - 1) != delimeter)
+	if (t > 0 && *(s + t - 1) != delimeter)
 		wrd++;
 	return (wrd);
 }
@@ -60,8 +60,8 @@ int calword(char *s, char delimeter)
 /**
 * strtow -  Entrypoint
 * Description: 'the program's description _strlen
-* @str : 1 param
-* @delimeter: 3 param
+* @str: 1 param
+* @delimeter: 2 param
 *  Return: Always 0 (Success)
 */
 char **strtow(char *str, char delimeter)
@@ -99,6 +99,7 @@ char **strtow(char *str, char delimeter)
 			}
 			t++;
 		}
+		allstr[num] = NULL;
 		return (allstr);
 	}
 	return (allstr);

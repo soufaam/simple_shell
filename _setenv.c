@@ -12,7 +12,7 @@ int _setenv(const char *variable, const char *value, int overwrite)
 	char *val;
 	int set_val;
 
-	if (variable == NULL || variable[0] == '\0' ||  _strc(variable, "=") != NULL)
+	if (variable == NULL || variable[0] == '\0' ||  _strc(variable, '=') != 0)
 	{
 		perror("setenv error: invalid variable name");
 		return (-1);
@@ -22,16 +22,16 @@ int _setenv(const char *variable, const char *value, int overwrite)
 		perror("setenv error: variable already exist");
 		return (-1);
 	}
-	val = malloc(_strlen(variable) + _strlen(value) + 2);
+	val = malloc(_strlen((char *)variable) + _strlen((char *)value) + 2);
 
 	if (val == NULL)
 	{
 		perror("setenv error: failed memory");
 		return (-1);
 	}
-	_strcpy(val, variable);
-	_strcat(val, "=");
-	_strcat(val, value);
+	_strcpy((char *)val, (char *)variable);
+	_strcat((char *)val, "=");
+	_strcat((char *)val, (char *)value);
 
 	set_val = putenv(val);
 
@@ -64,8 +64,7 @@ int _strc(const char *str, char ch)
  */
 char *_strcpy(char *dest, char *src)
 {
-	size_t len = _strlen(src);
-	int i;
+	size_t len = _strlen(src), i;
 
 	if (dest == NULL || src == NULL)
 		return (NULL);

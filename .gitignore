@@ -50,6 +50,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
+alx_test_suite
+allowed_functions
+*.bash
+simple_shell_project
 #editor settings
 .vscode
+TEST_SUITE
+main.cc
+main.cpp

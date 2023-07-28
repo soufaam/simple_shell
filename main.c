@@ -8,9 +8,10 @@
  *@signo: first param
  * Return: Always 0
  **/
-void sig_handler(int signo)
+void sig_handler(__attribute__((unused)) int signo)
 {
-	exit(signo);
+	write(STDOUT_FILENO, "\n$ ", _strlen("\n$ "));
+	fflush(stdout);
 }
 /**
  * main - Entry point
@@ -22,41 +23,37 @@ void sig_handler(int signo)
 int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 {
 	size_t buffer_size = 0, i = 0;
-	int numerchar, status;
-	__pid_t pid;
-	char *line = NULL, **tab = NULL, *_st = NULL;
+	int numberchar, status = 0, flag = 0;
+	char *line = NULL, **tab = NULL, *cmd = NULL, *tmp = NULL, **path = NULL;
 
 	signal(SIGINT, sig_handler);
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", _strlen("$ "));
-		numerchar = getline(&line, &buffer_size, stdin);
-		i++;
-		if (numerchar == -1)
-			getline_error(_st, line, tab);
-		tab = strtow(line, ' ');
-		if (tab[1])
-		{
-			dprintf(STDERR_FILENO, "%s: No such file or directory\n", av[0]);
+		path = strtow(_getenv("PATH"), ':');
+		shell_prompt(&buffer_size, &i);
+		numberchar = getline(&line, &buffer_size, stdin);
+		if (get_line_tester(numberchar, status, line, &tmp, path) == 1)
 			continue;
-		}
-		builtin_command(tab[0]);
-		if (_stat(tab[0]) == 0)
+		tab = strtow(tmp, ' ');
+		if (tab)
 		{
-			pid = fork();
-			if (pid == -1)
-				getline_error(_st, line, tab);
-			if (pid == 0)
+			builtin_command(line, tmp, path, tab, &flag, status);
+			if (flag)
 			{
-				if (execve(tab[0],  tab, environ) == -1)
-					dprintf(STDERR_FILENO, "%s: %lu: %s: not found\n", av[0], i, _st);
+				free_memory(tmp, cmd, line, tab);
+				free_path(path);
+				continue;
 			}
-			else
-				wait(&status);
+			cmd = _find_command(tab[0], path);
+			child(&status, &flag, cmd, line, tab, path);
+			if (!flag)
+				write_not_found_error(av[0], i, cmd, &status);
 		}
+		if (tab && !_strncmp(tab[0], cmd, _strlen(cmd)))
+			free_memory(tmp, NULL, line, tab);
 		else
-			dprintf(STDERR_FILENO, "%s: No such file or directory\n", av[0]);
+			free_memory(tmp, cmd, line, tab);
+		free_path(path);
 	}
-	free_memory(_st, line, tab);
 	return (0);
 }

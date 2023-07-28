@@ -21,5 +21,6 @@ int _strcmp(char *s1, char *s2)
 		i++;
 		result = *(s1 + i) - *(s2 + i);
 	}
+	free(s2);
 	return (result);
 }
