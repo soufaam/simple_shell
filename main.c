@@ -51,10 +51,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 		}
 		if (tab && !_strncmp(tab[0], cmd, _strlen(cmd)) &&
 		access(cmd, X_OK) == 0)
-		{
-			printf("%s %s\n", cmd, tab[0]);
 			free_memory(tmp, NULL, line, tab);
-		}
 		else
 			free_memory(tmp, cmd, line, tab);
 		free_path(path);
