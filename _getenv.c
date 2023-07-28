@@ -26,7 +26,7 @@ char *_getenv(const char *name)
 			else
 				break;
 		}
-		if (len == j)
+		if (len == j && environ[i][j] == '=')
 		{
 			var = environ[i] + len + 1;
 			break;

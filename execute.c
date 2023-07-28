@@ -43,7 +43,7 @@ void write_not_found_error(char *av, int i, char *cmd, int *status)
 	prinInt(i);
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, cmd, _strlen(cmd));
-	write(STDERR_FILENO, " not found\n", _strlen(" not found\n"));
+	write(STDERR_FILENO, ": not found\n", _strlen(": not found\n"));
 	*status = 127;
 }
 
