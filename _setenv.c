@@ -7,40 +7,46 @@
  * @overwrite: 1 or 0
  * Return: -1 if fail 0 on success
  */
+
 int _setenv(const char *variable, const char *value, int overwrite)
 {
+	extern char **environ;
 	char *val;
-	int set_val;
+	int i;
 
-	if (variable == NULL || variable[0] == '\0' ||  _strc(variable, '=') != 0)
+	if (variable == NULL || variable[0] == '\0')
 	{
 		perror("setenv error: invalid variable name");
 		return (-1);
 	}
-	if (_getenv(variable) && overwrite == 0)
+
+	for (i = 0; environ[i]; i++)
 	{
-		perror("setenv error: variable already exist");
-		return (-1);
+		if (_strncmp((const char *)environ[i], variable, (size_t)_strlen((char *)variable)) == 0)
+		{
+			if (overwrite != 0)
+			{
+				val = malloc(_strlen((char *)variable) + _strlen((char *)value) + 2);
+
+				if (val == NULL)
+					return (-1);
+				
+				_strcpy((char *)val, (char *)variable);
+				_strcat((char *)val, "=");
+				_strcat((char *)val, (char *)value);
+				environ[i] = val;
+			}
+			return (0);
+		}
 	}
 	val = malloc(_strlen((char *)variable) + _strlen((char *)value) + 2);
 
-	if (val == NULL)
-	{
-		perror("setenv error: failed memory");
-		return (-1);
-	}
 	_strcpy((char *)val, (char *)variable);
 	_strcat((char *)val, "=");
 	_strcat((char *)val, (char *)value);
-
-	set_val = putenv(val);
-
-	if (set_val)
-	{
-		perror("setenv error: failed to set the value");
-		free(val);
-		return (-1);
-	}
+	environ[i] = val;
+	i++;
+	environ[i] = NULL;
 	return (0);
 }
 /**
