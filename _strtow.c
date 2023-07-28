@@ -13,9 +13,9 @@ int calcchar(char *s, __attribute__((unused)) int  *t, char delimeter)
 {
 	int charcount = 0;
 
-	while (s[*t] != '\0' && (s[*t] != '\n' || s[*t + 1] != '\0'))
+	while (s[*t] != '\0')
 	{
-		if ((*(s + *t) == delimeter) && (*(s + *t - 1) != delimeter) && (*t >= 1))
+		if ((*(s + *t) == delimeter) && (*t >= 1) && (*(s + *t - 1) != delimeter))
 		{
 			return (charcount);
 		}
