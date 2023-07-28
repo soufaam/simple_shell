@@ -93,8 +93,11 @@ char *_readline(char **line, size_t *buffer_size, int fd)
 	char *str = NULL, *tmp_str = NULL, *tmp = NULL;
 
 	str = malloc(*buffer_size * sizeof(char) + 1);
+	if (!str)
+		return (NULL);
 	numberchar = 0;
 	numberchar = read(fd, str, *buffer_size);
+	str[numberchar] = '\0';
 	if (findchar(str, '\n', &len))
 	{
 		tmp = _strncpy(tmp, str, len);
