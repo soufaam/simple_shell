@@ -70,6 +70,8 @@ char **strtow(char *str, char delimeter)
 	int num = 0, i;
 	char **allstr = NULL;
 
+	if (str[0] == '\0')
+		return (NULL);
 	wordcount = calword(str, delimeter);
 	if (wordcount == 0)
 		return (NULL);
@@ -79,9 +81,7 @@ char **strtow(char *str, char delimeter)
 		for (num = 0; num < wordcount; num++)
 		{
 			if (*(str + t) == '\0')
-			{
 				return (allstr);
-			}
 			charcount = calcchar(str, &t, delimeter);
 			if (charcount != 0)
 			{

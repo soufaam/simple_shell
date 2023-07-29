@@ -72,8 +72,9 @@ char **tmp, char **path)
 		exit(status);
 		}
 	}
-	if (numberchar == 1)
+	if (numberchar == 1 || numberchar == 0)
 	{
+		free_path(path);
 		free(line);
 		line = NULL;
 		return (1);
