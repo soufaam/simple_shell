@@ -40,5 +40,9 @@ void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path)
 		}
 	}
 	else
+	{
+		*status = 127;
 		*fg = 0;
+	}
+
 }
