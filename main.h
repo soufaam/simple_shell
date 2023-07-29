@@ -24,11 +24,12 @@ int _stat(char *command);
 void getline_error(char *_st, char *line, char **tab, char **path);
 void free_memory(char *tmp, char *_st, char *line, char **tab);
 void print_env(void);
-void builtin_command(char *ln, char *tmp,
-char **pth, char **tab, int *fg, int st);
+void builtin_command(char *ln, char *tmp, char **pth,
+char **tab, char **av, int *fg, int *st, int i);
 void execute(char *command, char **argv);
 void write_error(char *filename);
 void write_not_found_error(char *av, int i, char *cmd, int *status);
+void write_illegal_error(char *av, char *cmd, int i);
 int _setenv(const char *variable, const char *value, int overwrite);
 int _strc(const char *str, char ch);
 char *_strcpy(char *dest, char *src);
@@ -42,5 +43,6 @@ void child(int *status, int *fg, char *cmd, char *ln, char **tab, char **path);
 void free_path(char **grid);
 extern char **environ;
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+int _atoi(char *str);
 
 #endif

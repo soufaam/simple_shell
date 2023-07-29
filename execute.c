@@ -47,6 +47,29 @@ void write_not_found_error(char *av, int i, char *cmd, int *status)
 	*status = 127;
 }
 
+
+/**
+* write_illegal_error -  auxilatry function
+* Description: write_illegal_error read print error when occurs
+* @av: 3 parameter
+* @i: 4 parameter
+* @cmd: 5 parameter
+* and return the the desired variable
+* Return: Always 0 (Success)
+**/
+
+void write_illegal_error(char *av, char *cmd, int i)
+{
+	write(STDERR_FILENO, av, _strlen(av));
+	write(STDERR_FILENO, ": ", 2);
+	prinInt(i);
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, "exit: Illegal number: ",
+	_strlen("exit: Illegal number: "));
+	write(STDERR_FILENO, cmd, _strlen(cmd));
+	write(STDERR_FILENO, "\n", _strlen("\n"));
+	free(cmd);
+}
 /**
 * execute -  auxilatry function
 * Description: _getenv read environment variables

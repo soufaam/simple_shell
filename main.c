@@ -37,7 +37,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **av)
 		tab = strtow(tmp, ' ');
 		if (tab)
 		{
-			builtin_command(line, tmp, path, tab, &flag, status);
+			builtin_command(line, tmp, path, tab, av, &flag, &status, i);
 			if (flag)
 			{
 				free_memory(tmp, cmd, line, tab);
