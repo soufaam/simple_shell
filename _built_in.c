@@ -55,6 +55,7 @@ char **tab, char **av, int *fg, int *st, int i)
 			if (exit_stat)
 			{
 				free_all(tmp, ln, tab, pth);
+				free(str_stat);
 				exit(exit_stat);
 			}
 			else
