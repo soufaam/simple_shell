@@ -13,10 +13,10 @@ char *_find_command(char *command, char **path)
 	int i = 0;
 	char *result_cat = NULL;
 
-	if (!path)
-		return (_strdup(command));
 	if (access(command, X_OK) == 0)
 		return (command);
+	if (!path)
+		return (_strdup(command));
 	for (i = 0; path[i] != NULL; i++)
 	{
 		result_cat = _strcat(path[i], command);
