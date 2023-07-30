@@ -80,6 +80,6 @@ void write_illegal_error(char *av, char *cmd, int i)
 **/
 void execute(char *command, char **argv)
 {
-	if (execve(command, argv, argv) == -1)
+	if (execve(command, argv, environ) == -1)
 		perror("Failed to execute command\n");
 }
